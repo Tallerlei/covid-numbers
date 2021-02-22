@@ -1,0 +1,5 @@
+<h1 [innerText]="selectedDistrict"></h1>
+<div>
+    <input type="text" #districtInput (keydown.enter)="showData($event, districtInput.value)">
+    <button (click)="showData($event, districtInput.value)">Show</button>
+</div>
