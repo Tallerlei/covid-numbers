@@ -11,6 +11,13 @@ export class DataService {
 
   getDistrictData() {
     return this.http.get('https://rki.marlon-lueckert.de/api/districts');
+  }
 
+  get storedDistrict(): string {
+    return window.localStorage.getItem('covid-numbers-selected-district') || "";
+  }
+
+  set storedDistrict(value: string) {
+    window.localStorage.setItem('covid-numbers-selected-district', value);
   }
 }

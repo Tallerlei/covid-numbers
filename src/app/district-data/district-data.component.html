@@ -1,5 +1,54 @@
-<h1 [innerText]="selectedDistrict"></h1>
-<div>
-    <input type="text" #districtInput (keydown.enter)="showData($event, districtInput.value)">
-    <button (click)="showData($event, districtInput.value)">Show</button>
+<div class="container" style="margin-top: 70px;">
+    <h1 [innerText]="selectedDistrict"></h1>
+    <div>
+        <!-- <input type="text" #districtInput (keydown.enter)=""> -->
+        <!-- <select (change)="showData($event, districtSelect.value)" [value]="selectedDistrict" #districtSelect>
+        <option *ngFor="let district of districtData">{{district.name}}</option>
+    </select> -->
+        <select class="form-control" [formControl]="districtSelectControl">
+            <option *ngFor="let district of districtData" [ngValue]="district.name">{{district.name}}
+                ({{district.county}})
+            </option>
+        </select>
+        <!-- <button (click)="showData($event, districtSelectControl.value)">Show</button>{{districtSelectControl.value}} -->
+    </div>
+    <ng-container *ngIf="validDistrict; else invalidDistrictName">
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <td>Cases per 100k</td>
+                    <td> {{ round(selectedDistrictData.casesPer100k) }}</td>
+                </tr>
+                <tr>
+                    <td>Cases per Population</td>
+                    <td> {{ round(selectedDistrictData.casesPerPopulation) }}</td>
+                </tr>
+                <tr>
+                    <td>Count</td>
+                    <td> {{ round(selectedDistrictData.count) }}</td>
+                </tr>
+                <tr>
+                    <td>County</td>
+                    <td> {{ selectedDistrictData.county }}</td>
+                </tr>
+                <tr>
+                    <td>Deaths</td>
+                    <td> {{ round(selectedDistrictData.deaths) }}</td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td> {{ selectedDistrictData.name }}</td>
+                </tr>
+                <tr>
+                    <td>Week Incidences</td>
+                    <td> {{ round(selectedDistrictData.weekIncidence) }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </ng-container>
+    <ng-template #invalidDistrictName>
+        <h2>District {{selectedDistrict}} is unknown!</h2>
+    </ng-template>
+
 </div>

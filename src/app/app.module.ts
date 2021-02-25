@@ -10,7 +10,7 @@ import { DataService } from '../services/data.service';
 import { DistrictDataComponent } from './district-data/district-data.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,8 +22,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    ReactiveFormsModule,
+    AppRoutingModule,
   ],
   providers: [
     DataService
