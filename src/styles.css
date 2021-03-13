@@ -16,6 +16,13 @@ label {
     flex-wrap: wrap;
 }
 
+.router-wrapper {
+    margin-top:60px;
+    margin-bottom:72px;
+    overflow: auto;
+
+}
+
 footer {
     position: absolute;
     right: 0;
@@ -27,4 +34,8 @@ footer {
 .nav-item{
     padding:2px;
     margin-left: 7px;
+}
+
+.text-align-right {
+    text-align: right;
 }
