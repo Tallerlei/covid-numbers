@@ -11,6 +11,8 @@ import { DistrictDataComponent } from './district-data/district-data.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StatesComponent } from './states/states.component';
+import { OrderByPipe } from './order-by.pipe';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     DistrictDataComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    StatesComponent,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,

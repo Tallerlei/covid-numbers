@@ -1,7 +1,41 @@
-<div class="jumbotron" style="background-color: #fff; height: calc(95vh);">
-    <h1>Angular Bootstrap Demo</h1>
-    <p class="lead">
-      This demo shows how to integrate Bootstrap 4 with Angular 7  
-    </p>
-    <a class="btn btn-lg btn-primary" href="" role="button">View tutorial</a>
-  </div>
+<ng-container *ngFor="let data of [dataService.generalData | async]">
+  <table *ngIf="data" class="table table-hover">
+    <tbody>
+      <tr>
+        <td>New Infections</td>
+        <td class="text-align-right"> {{ formatNumber(data?.difference?.cases) }}</td>
+      </tr>
+      <tr>
+        <td>New Deaths</td>
+        <td class="text-align-right"> {{ formatNumber(data?.difference?.deaths) }}</td>
+      </tr>
+      <tr>
+        <td>New Recovered</td>
+        <td class="text-align-right"> {{ formatNumber(data?.difference?.recovered) }}</td>
+      </tr>
+      <tr>
+        <td>Cases per Week</td>
+        <td class="text-align-right"> {{ formatNumber(round(data.weekIncidence)) }}</td>
+      </tr>
+      <tr>
+        <td>Cases</td>
+        <td class="text-align-right"> {{ formatNumber(data.cases) }}</td>
+      </tr>
+      <tr>
+        <td>Cases per 100k</td>
+        <td class="text-align-right"> {{ formatNumber(round(data.casesPer100k)) }}</td>
+      </tr>
+      <tr>
+        <td>Deaths</td>
+        <td class="text-align-right"> {{ formatNumber(data.deaths) }}</td>
+      </tr>
+      <tr>
+        <td>Recovered</td>
+        <td class="text-align-right"> {{ formatNumber(data?.recovered) }}</td>
+      </tr>
+
+
+    </tbody>
+  </table>
+
+</ng-container>

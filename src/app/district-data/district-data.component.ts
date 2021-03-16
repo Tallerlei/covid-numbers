@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { DistrictData } from 'src/models/district-data.model';
 import { DataService } from 'src/services/data.service';
 
@@ -10,34 +12,31 @@ import { DataService } from 'src/services/data.service';
 })
 export class DistrictDataComponent implements OnInit {
   districtSelectControl: FormControl = new FormControl();
-  districtData: DistrictData[] = [];
   selectedDistrict = "";
   selectedDistrictData: DistrictData = new DistrictData();
+  defaultOption:any;
   validDistrict: boolean = false;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private dataService: DataService
-  ) { 
-
+  ) {
     this.districtSelectControl.valueChanges.subscribe(change => this.showData(change));
+    this.selectedDistrictData = this.defaultOption;
   }
 
   ngOnInit(): void {
-    this.dataService.getDistrictData().subscribe((data: any) => {
-      this.districtData = [...data.districts].sort((a, b) => {
-        if (a.name < b.name) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
-      this.districtSelectControl.setValue(this.dataService.storedDistrict);
-      console.log("setting ", this.dataService.storedDistrict);
-    });
+    this.dataService.districtDataUpdated$.pipe(
+      takeUntil(this.destroy$)
+    ). subscribe(
+      () => {
+        this.districtSelectControl.setValue(this.dataService.storedDistrict);        
+      }
+    )
+    console.log("setting ", this.dataService.storedDistrict);
   }
-  
+
   showData(inputValue: string) {
-    console.log("shwi ",inputValue);
     this.selectedDistrict = inputValue;
     this.selectedDistrictData = new DistrictData();
     const foundDistrict = this.districtData.find(district => district.name.toUpperCase() === inputValue.toUpperCase());
@@ -53,4 +52,8 @@ export class DistrictDataComponent implements OnInit {
 
   }
 
+  get districtData() {
+    return this.dataService.districtData;
+  }
 }
+

@@ -1,0 +1,33 @@
+    <div>
+        <select class="form-control" [formControl]="stateSelectControl">
+            <option *ngFor="let state of (dataService.statesData | async)?.states | order_by:'name'" [ngValue]="state">{{state?.name}}
+                ({{state?.code}})
+            </option>
+        </select>
+    </div>
+    <table *ngIf="selectedStateData" class="table table-hover">
+      <tbody>
+        <tr>
+          <td>Name</td>
+          <td> {{ selectedStateData.name }}</td>
+        </tr>
+        <tr>
+          <td>Count</td>
+          <td> {{ selectedStateData.count }}</td>
+        </tr>
+        <tr>
+          <td>Week Incidence</td>
+          <td> {{ round(selectedStateData.weekIncidence) }}</td>
+        </tr>
+        <tr>
+          <td>Cases per 100k</td>
+          <td> {{ round(selectedStateData.casesPer100k) }}</td>
+        </tr>
+        <tr>
+          <td>Deaths</td>
+          <td> {{ selectedStateData.deaths }}</td>
+        </tr>
+  
+      </tbody>
+    </table>
+  
