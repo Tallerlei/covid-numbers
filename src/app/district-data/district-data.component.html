@@ -2,13 +2,17 @@
     <select class="form-control" [formControl]="districtSelectControl">
         <option [value]="defaultOption" disabled hidden>Select your option</option>
         <option *ngFor="let district of districtData" [ngValue]="district.name">{{district.name}}
-            ({{district.county}})
+            ({{district.county}} ({{incidencePlace(district)}}))
         </option>
     </select>
 </div>
-<ng-container *ngIf="validDistrict; else invalidDistrictName">
-    <table class="table table-hover">
+<div class="flex-row district-data-wrapper">
+    <table *ngIf="selectedDistrict" class="table table-hover">
         <tbody>
+            <tr>
+                <td>Name</td>
+                <td> {{ selectedDistrictData.name }} ({{incidencePlace(selectedDistrictData)}})</td>
+            </tr>
             <tr>
                 <td>Cases per 100k</td>
                 <td> {{ round(selectedDistrictData.casesPer100k) }}</td>
@@ -30,17 +34,14 @@
                 <td> {{ round(selectedDistrictData.casesPerPopulation) }}</td>
             </tr>
             <tr>
-                <td>Name</td>
-                <td> {{ selectedDistrictData.name }}</td>
-            </tr>
-            <tr>
                 <td>County</td>
                 <td> {{ selectedDistrictData.county }}</td>
             </tr>
         </tbody>
     </table>
-
-</ng-container>
-<ng-template #invalidDistrictName>
-    <h2>District {{selectedDistrict}} is unknown!</h2>
-</ng-template>
+    <div class="district-list-container">
+        <div *ngFor="let district of orderedByIncidences" class="incidences-district" [class.selected-district]="district === selectedDistrictData" (click)="selectFromIncidenceList($event, district)">
+            {{ district.name }}
+        </div>
+    </div>
+</div>

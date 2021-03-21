@@ -1,0 +1,24 @@
+.selected-district {
+  color: red;
+  font-size: 12px
+}
+
+.district-list-container {
+  font-size: 8px;
+  overflow: auto;
+  margin-top: 12px;
+  max-height: 310px;
+}
+
+.incidences-district:hover {
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.district-data-wrapper>*:first-child {
+  margin-right: 12px;
+}
+
+table {
+  flex: 1;
+}

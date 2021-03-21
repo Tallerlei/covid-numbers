@@ -14,6 +14,10 @@
         <td class="text-align-right"> {{ formatNumber(data?.difference?.recovered) }}</td>
       </tr>
       <tr>
+        <td>Active Cases</td>
+        <td class="text-align-right"> {{ formatNumber(data?.cases - data?.recovered) }}</td>
+      </tr>
+      <tr>
         <td>Cases per Week</td>
         <td class="text-align-right"> {{ formatNumber(round(data.weekIncidence)) }}</td>
       </tr>
@@ -37,5 +41,7 @@
 
     </tbody>
   </table>
-
+  <div>
+    <small>{{(dataService.generalData | async)?.lastUpdate}}</small>
+  </div>
 </ng-container>

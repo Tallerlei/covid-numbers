@@ -18,7 +18,7 @@ export class DataService {
     this.statesData = this.getStatesData().pipe(share());
   }
 
-  get districtData() {
+  get districtData(): DistrictData[] {
     if (this._districtData.length === 0) {
       this._districtData = [{ casesPer100k: 0, casesPerPopulation: 0, count: 0, county: '', deaths: 0, name: '', weekIncidence: 0 }];
       this.http.get('https://rki.marlon-lueckert.de/api/districts').subscribe((data: any) => {
@@ -35,19 +35,27 @@ export class DataService {
     return this._districtData;
   }
 
-  getGeneralData() {
+  getGeneralData(): any {
     return this.http.get('https://rki.marlon-lueckert.de/api/general');
   }
 
-  getStatesData() {
+  getStatesData(): any {
     return this.http.get('https://rki.marlon-lueckert.de/api/states');
   }
 
   get storedDistrict(): string {
-    return window.localStorage.getItem('covid-numbers-selected-district') || "";
+    return window.localStorage.getItem('covid-numbers-selected-district') || '';
   }
 
   set storedDistrict(value: string) {
     window.localStorage.setItem('covid-numbers-selected-district', value);
+  }
+
+  get storedState(): string {
+    return window.localStorage.getItem('covid-numbers-selected-state') || '';
+  }
+
+  set storedState(value: string) {
+    window.localStorage.setItem('covid-numbers-selected-state', value);
   }
 }
